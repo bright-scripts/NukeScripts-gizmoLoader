@@ -17,7 +17,6 @@ def main():
         this = []
         for y in x:
             this.append(f"{y.isDirectory} | {y.content}")
-        # print(f"[{x}] - {this}")
 
     build(path, gizmos)
 
@@ -43,17 +42,6 @@ class NukeItem:
 def discover(fromHere):
     # Discovering directories and files in `fromHere` folder
     discovery = os.walk(top=fromHere)
-
-    # for x in discovery:
-    #     print("[0] Dir path: " + x[0])
-    #     print("[1] Dir names: ")
-    #     for y in x[1]:
-    #         print("- " + y)
-    
-    #     print("[2] File names: ")
-    #     for y in x[2]:
-    #         print("- " + y)
-    #     print("-------------------")
 
 
     # Formatting discovery info into menus
@@ -86,7 +74,6 @@ def build(path, gizmos):
     menus.append(m)
 
     for x in range(0, len(gizmos)):
-        depth = 0
         for y in range(0, len(gizmos[x])):
 
             if gizmos[x][y].isDirectory:
@@ -98,16 +85,9 @@ def build(path, gizmos):
                         if len(gizmos[x][y].content) >= 2:
                             if menus[z].name() == gizmos[x][y].content[-2]:
                                 thisMenu = z
-                                print("!!! Found this: " + menus[z].name())
                                 break
                     
-                    print(f"menu len: {len(menus)} | thisMenu: {thisMenu}")
                     menus.append(menus[thisMenu].addMenu(gizmos[x][y].content[-1], index = 0))
-                    # depth = len(gizmos[x][y].content)-1
-                    # menus.append(menus[depth].addMenu(gizmos[x][y].content[-1], index = 0))
-                    print(f"Menu created: {gizmos[x][y].content[-1]} -> {menus[-1].name()} in **{menus[thisMenu].name()}**")
-                    
-                    # print(f"FOLDER I&N: len(m): {len(menus)} d:[{depth}] x:[{x}] y:[{y}] - {gizmos[x][y].content[-1]}\n")
 
 
             else:
@@ -116,12 +96,9 @@ def build(path, gizmos):
                     if len(gizmos[x][0].content) != 0:
                         if menus[z].name() == gizmos[x][0].content[-1]:
                             thisMenu = z
-                            print("Found this: " + menus[z].name())
                             break
 
                 menus[thisMenu].addCommand(gizmos[x][y].content.split('.')[0], f"nuke.createNode({gizmos[x][y].content})")
-                print(f"len(m): {len(menus)} d:[{depth}] x:[{x}] y:[{y}] - Added **{gizmos[x][y].content}** to **{menus[thisMenu].name()}**")
-        print("\n---")
 
 
     return 0
