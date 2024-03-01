@@ -98,7 +98,7 @@ def build(path, gizmos):
                             thisMenu = z
                             break
 
-                menus[thisMenu].addCommand(gizmos[x][y].content.split('.')[0], f"nuke.createNode({gizmos[x][y].content})")
+                menus[thisMenu].addCommand(gizmos[x][y].content.split('.')[0], f"nuke.createNode('{gizmos[x][y].content}')")
 
 
     return 0
