@@ -1,9 +1,17 @@
 import nuke
 import os
+from inspect import getframeinfo, currentframe
 
 def main(): 
 
-    dotNukePath = "C:/Users/Gigabyte/.nuke"
+    #Finding .nuke folder based on the location of this very .py script runs from
+    filename = getframeinfo(currentframe()).filename
+
+    if filename.find(".nuke") == -1:
+        print("# gizmoLoaderPlugin:\n\tYour .nuke folder couldn't be found.\n\tPlease reference the README.md file on github to see where to paste files from the repo for it to work.\n\tIf you are sure you are doing things properly and you still get this error please contact the dev on discord: @mellow_moth")
+        exit (code="ERROR: gizmoLoaderPlugin: .nuke/ not found")
+
+    dotNukePath = os.path.dirname(os.path.abspath(filename))[0:filename.find(".nuke")+5].replace("\\", "/")
     path = dotNukePath+"/ToolSets/gizmoLoader"
 
     # Creating the gizmoLoader folder if it doesn't already exist
